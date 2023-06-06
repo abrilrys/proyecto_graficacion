@@ -10,7 +10,10 @@ function init() {
     document.getElementById("webgl").appendChild(renderer.domElement);
 
     controls = new THREE.OrbitControls(camera, renderer.domElement);
-
+    //Creamos la luz ambiental
+    var ambientLight;
+    ambientLight = new THREE.AmbientLight(0xffffff, 0.5); // Color and intensity parameters
+    //
     var spotLight_01 = getSpotlight("rgb(145, 200, 255)", 1);
     spotLight_01.name = "spotLight_01";
     var spotLight_02 = getSpotlight("rgb(255, 220, 180)", 1);
@@ -24,6 +27,8 @@ function init() {
     scene.add(plane);
     scene.add(spotLight_01);
     scene.add(spotLight_02);
+    //Añadimos la luz ambiental a la escena
+    scene.add(ambientLight);
 
     camera.position.x = 0;
     camera.position.y = 6;
@@ -43,7 +48,7 @@ function init() {
 
     var textureLoader = new THREE.TextureLoader();
     var texture = textureLoader.load('rock.jpg');
-    var metalTexture = textureLoader.load('metal.jpg');
+    var metalTexture = textureLoader.load('shrek.jpg');
 
     var planeMaterial = plane.material;
     var sphereMaterial = sphere.material;
@@ -51,7 +56,8 @@ function init() {
     planeMaterial.map = texture;
     planeMaterial.roughness = 0.65;
     planeMaterial.metalness = 0.75;
-
+    
+    sphereMaterial.map = metalTexture;
     sphereMaterial.roughness = 0.75;
     sphereMaterial.metalness = 0.25;
 
@@ -103,6 +109,8 @@ function update() {
 
     // Animate the sphere's motion here
     sphere.position.y = Math.sin(Date.now() * 0.002) + (sphere.geometry.parameters.radius * 2);
+    //rotamos la esfera
+    sphere.rotation.y += 0.01;
 
     renderer.render(scene, camera);
     controls.update();
