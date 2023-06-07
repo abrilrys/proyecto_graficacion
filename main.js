@@ -11,18 +11,15 @@ function init() {
   var spotLight_02 = getSpotlight("rgb(255, 220, 180)", 1);
   spotLight_02.name = "spotLight_02";
 
-  // create geometric objects
   var plane = getPlane(50, 50);
   var sphere = getSphere(1);
   sphere.name = "sphere";
 
-  // add objects to the scene
   scene.add(sphere);
   scene.add(plane);
   scene.add(spotLight_01);
   scene.add(spotLight_02);
 
-  // transform objects
   camera.position.x = 0;
   camera.position.y = 6;
   camera.position.z = 6;
@@ -68,7 +65,6 @@ function init() {
     planeMaterial[mapName].repeat.set(repetition, repetition);
   });
 
-  // enabling antialias to get rid of jagged edges in the render
   var renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.shadowMap.enabled = true;
   document.getElementById("webgl").appendChild(renderer.domElement);
